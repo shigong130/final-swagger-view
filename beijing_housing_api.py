@@ -31,7 +31,7 @@ def predict_location(min_total_price, max_total_price, min_square, max_square, d
     #     predicted_class = "Iris-Virginica"
 
     # Return the prediction as a json
-    return {"prediction" : "test is ok"}
+    return {"prediction" : "test is ok."}
 
 app.add_api("beijing_housing_api.yaml")
 
