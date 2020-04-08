@@ -1,0 +1,92 @@
+swagger: '2.0'
+info:
+  title: Beijing Housing Market API
+  version: "0.1"
+  description: An API that predict the price and location of Beijing housing market
+
+paths:
+  /health:
+    get:
+      summary: Checks the health of the service
+      description: Returns the health status of the service
+      operationId: beijing_housing_api.health
+      responses:
+        '200':
+          description: Service is healthy
+        '500':
+          description: Service is unhealthy
+  /predict-location:
+    post:
+      summary: Entrypoint to our predict location function
+      operationId: beijing_housing_api.predict_location
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+        - in: formData
+          name: min_total_price
+          required: true
+          description: Desired The minimum total price of price range.
+          type: number
+        - in: formData
+          name: max_total_price
+          required: true
+          description: Desired maximum total price of price range.
+          type: number
+        - in: formData
+          name: district
+          required: true
+          description: Desired home area.
+          type: string
+          enum: ["DongCheng", "FengTai", "YiZhuang", "DaXing", "FangShan", "ChangPing", "ChaoYang", "HaiDian", "ShiJingShan", "XiCheng", "ShunYi", "TongZhou", "MenTouGou"]
+        - in: formData
+          name: trade_month
+          required: true
+          description: Desired trading month.
+          type: number
+          enum: [1,2,3,4,5,6,7,8,9,10,11,12]
+        - in: formData
+          name: trade_year
+          required: true
+          description: Desired trading year in format XXXX, valid range 2001 - 2050.
+          type: number
+          minimum: 2001
+          maximum: 2050
+        - in: formData
+          name: min_square
+          required: false
+          description: Desired minimum total sqaremeters.
+          type: number
+        - in: formData
+          name: max_square
+          required: false
+          description: Desired maximum total sqaremeters.
+          type: number
+        - in: formData
+          name: num_of_bedroom
+          required: false
+          description: Desired number of bedrooms.
+          type: number
+        - in: formData
+          name: num_of_bathroom
+          required: false
+          description: Desired number of bathrooms.
+          type: number
+        - in: formData
+          name: subway
+          required: false
+          description: Close to subway.
+          type: boolean
+        - in: formData
+          name: elevator
+          required: false
+          description: Property has elevator.
+          type: boolean
+
+      responses:
+        '200':
+          description: Prediction performed successfully
+        '500':
+          description: Unable to perform the Prediction
+
